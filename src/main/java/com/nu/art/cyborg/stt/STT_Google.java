@@ -104,7 +104,7 @@ public class STT_Google
 	@Override
 	protected void init() {
 		responseObserver = new SpeechResponseObserver();
-		handler = new JavaHandler().start(getClass().getSimpleName());
+		hand\ler = new JavaHandler().start(getClass().getSimpleName());
 		initializeRecognizer();
 	}
 
