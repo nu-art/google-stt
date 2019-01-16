@@ -14,6 +14,7 @@ import com.google.cloud.speech.v1.StreamingRecognizeResponse;
 import com.google.protobuf.ByteString;
 import com.nu.art.core.interfaces.Getter;
 import com.nu.art.core.utils.DebugFlags;
+import com.nu.art.core.utils.DebugFlags.DebugFlag;
 import com.nu.art.core.utils.JavaHandler;
 import com.nu.art.modules.STT_Client;
 
@@ -48,8 +49,6 @@ public class STT_Google
 
 		void setBuffering(boolean enabled);
 	}
-
-	public static final String DebugFlag = "Debug_" + STT_Google.class.getSimpleName();
 
 	private static final String HOSTNAME = "speech.googleapis.com";
 	private static final int PORT = 443;
@@ -190,7 +189,7 @@ public class STT_Google
 			boolean isFinal = results.getIsFinal();
 			String resultTranscript = results.getAlternatives(0).getTranscript();
 
-			if (DebugFlags.isDebuggableFlag(DebugFlag))
+			if (DebugFlag.isEnabled())
 				logDebug("started: " + started + ", isFinal: " + isFinal + ", resultsCount: " + resultsCount + ", resultTranscript: " + resultTranscript);
 
 			if (!isFinal && !started) {
@@ -343,7 +342,7 @@ public class STT_Google
 						requestObserver.onError(e);
 				}
 
-				if (DebugFlags.isDebuggableFlag(DebugFlag))
+				if (DebugFlag.isEnabled())
 					logDebug("Check buffer... (" + (System.currentTimeMillis() - processing) + "ms)");
 			}
 
